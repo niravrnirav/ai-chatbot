@@ -7,6 +7,7 @@ using Microsoft.Bot.Builder.Integration.AspNet.Core;
 using Microsoft.Bot.Connector.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +48,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
+else
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
 
 app.UseDefaultFiles()
     .UseStaticFiles()
@@ -58,5 +64,5 @@ app.UseDefaultFiles()
         endpoints.MapControllers();
     });
 
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.Run();
